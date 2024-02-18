@@ -1,12 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+// hook
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
 
 // components
 import WorkoutDetails from '../components/WorkoutDetails';
 import WorkoutForm from "../components/WorkoutForm";
 
 const Home = () => {
-    // Destructure the array returned by useState properly
-    const [workouts, setWorkouts] = useState(null);
+    // Uses the context written
+    const {workouts, dispatch} = useWorkoutsContext();
 
     useEffect(() => {
         const fetchWorkouts = async () => {
@@ -14,7 +17,7 @@ const Home = () => {
             const json = await response.json();
 
             if (response.ok) {
-                setWorkouts(json);
+                dispatch({type: 'SET_WORKOUTS', payload: json});
             }
         };
 
