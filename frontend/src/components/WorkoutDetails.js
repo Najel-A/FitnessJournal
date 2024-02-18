@@ -1,4 +1,8 @@
+import { useWorkoutsContext } from "../hooks/useWorkoutsContext";
+
 const WorkoutDetails = ({ workout }) => {
+    const { dispatch } = useWorkoutsContext();
+
     // Convert timestamp
     const createdAtDate = new Date(workout.createdAt);
 
@@ -7,6 +11,18 @@ const WorkoutDetails = ({ workout }) => {
         month: 'short', 
         day: '2-digit' 
     };
+
+    const handleDeleteClick = async () => {
+        const response = await fetch('/api/workouts/' + workout._id, {
+            method: 'DELETE'
+        });
+
+        const json = await response.json();
+
+        if (response.ok) {
+            dispatch({type: 'DELETE_WORKOUT', payload: json});
+        }
+    }
 
     // Format the createdAt date using toLocaleDateString
     const formattedDate = createdAtDate.toLocaleDateString('en-US', options);
@@ -17,6 +33,7 @@ const WorkoutDetails = ({ workout }) => {
             <p><strong>Load: </strong>{workout.load}</p>
             <p><strong>Reps: </strong>{workout.reps}</p>
             <p>{formattedDate}</p>
+            <span class="delete-icon" onClick={handleDeleteClick}></span>
         </div>
     );
 }

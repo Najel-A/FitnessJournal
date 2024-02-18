@@ -97,3 +97,21 @@ div.error {
   border-radius: 4px;
   margin: 20px 0;
 }
+
+.delete-icon {
+  display: inline-block;
+  width: 24px; /* Adjust size as needed */
+  height: 24px; /* Adjust size as needed */
+  background-color: red !important;
+  color: white !important;
+  border-radius: 50%; /* To make it a circle */
+  text-align: center;
+  line-height: 24px; /* Adjust based on icon size */
+  cursor: pointer;
+}
+
+.delete-icon::before {
+  content: '\1F5D1'; /* Unicode for trash can icon */
+  font-family: Arial, sans-serif; /* You can use any font that supports this icon */
+  font-size: 32px; /* Adjust size as needed */
+}
